@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strideco - Rastreo de Pedidos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Fondo oscuro */
+            color: white; /* Texto blanco para contraste */
+            overflow: hidden; /* Para evitar barras de desplazamiento */
+        }
+        header {
+            background-color: #2c2c2c; /* Gris antracita */
+            padding: 20px;
+            text-align: center;
+        }
+        header img {
+            max-height: 120px; /* Incrementa el tamaño del logo */
+            margin-bottom: 10px;
+        }
+        header .message {
+            font-family: 'Mountains of Christmas', cursive; /* Fuente navideña */
+            font-size: 28px;
+            color: #ff6961; /* Rojo navideño */
+            margin-top: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #2c2c2c; /* Fondo gris antracita */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            color: white; /* Blanco */
+        }
+        .container p {
+            color: #ddd; /* Gris claro */
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333; /* Gris oscuro */
+        }
+        input[type="button"] {
+            background-color: #ff6961; /* Rojo navideño */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="button"]:hover {
+            background-color: #e55b54; /* Rojo más oscuro para hover */
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #bbb; /* Gris claro */
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Evita interrumpir clics */
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Logo más grande -->
+        <img src="logo.png" alt="Logo de Strideco">
+        <div class="message">¡Feliz Navidad y Próspero Año Nuevo!</div>
+    </header>
+    <div class="container">
+        <h2>Rastrea tu Pedido</h2>
+        <p>Ingresa tu número de rastreo para obtener información detallada de tu pedido.</p>
+        <input type="text" id="YQNum" maxlength="50" placeholder="Número de rastreo">
+        <input type="button" value="Rastrear" onclick="doTrack()">
+    </div>
+    <footer>
+        &copy; 2024 Strideco. Todos los derechos reservados.
+    </footer>
+
+    <!-- Lienzo para la nieve -->
+    <canvas id="snowCanvas"></canvas>
+
+    <script type="text/javascript" src="//www.17track.net/externalcall.js"></script>
+    <script type="text/javascript">
+        function doTrack() {
+            var num = document.getElementById("YQNum").value;
+            if (num === "") {
+                alert("Por favor, ingresa tu número de rastreo.");
+                return;
+            }
+            YQV5.trackSingleF2({
+                YQ_ElementId: "YQNum",
+                YQ_Width: 770,
+                YQ_Height: 560,
+                YQ_Fc: "0",
+                YQ_Lang: "es",
+                YQ_Num: num
+            });
+        }
+
+        // Efecto de nieve
+        const canvas = document.getElementById("snowCanvas");
+        const ctx = canvas.getContext("2d");
+        let width = (canvas.width = window.innerWidth);
+        let height = (canvas.height = window.innerHeight);
+        const snowflakes = [];
+
+        // Genera copos de nieve
+        function createSnowflakes() {
+            for (let i = 0; i < 100; i++) {
+                snowflakes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 3 + 1,
+                    speed: Math.random() * 1 + 0.5,
+                    wind: Math.random() * 0.5 - 0.25
+                });
+            }
+        }
+
+        // Dibuja los copos de nieve
+        function drawSnowflakes() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            snowflakes.forEach((flake) => {
+                ctx.moveTo(flake.x, flake.y);
+                ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+            });
+            ctx.fill();
+            updateSnowflakes();
+        }
+
+        // Actualiza la posición de los copos de nieve
+        function updateSnowflakes() {
+            snowflakes.forEach((flake) => {
+                flake.y += flake.speed;
+                flake.x += flake.wind;
+                if (flake.y > height) flake.y = 0;
+                if (flake.x > width) flake.x = 0;
+                if (flake.x < 0) flake.x = width;
+            });
+        }
+
+        // Ajusta el tamaño del lienzo al cambiar el tamaño de la ventana
+        window.addEventListener("resize", () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Inicia el efecto de nieve
+        function animate() {
+            drawSnowflakes();
+            requestAnimationFrame(animate);
+        }
+
+        createSnowflakes();
+        animate();
+    </script>
+</body>
+</html>
+
+
