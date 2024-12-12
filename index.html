@@ -19,12 +19,12 @@
             text-align: center;
         }
         header img {
-            max-height: 200px; /* Incrementa el tamaño del logo */
+            max-height: 200px; /* Tamaño del logo en pantallas normales */
             margin-bottom: 10px;
         }
         header .message {
             font-family: 'Mountains of Christmas', cursive; /* Fuente navideña */
-            font-size: 28px;
+            font-size: 28px; /* Tamaño del mensaje en pantallas normales */
             color: #ff6961; /* Rojo navideño */
             margin-top: 10px;
         }
@@ -76,6 +76,16 @@
             left: 0;
             pointer-events: none; /* Evita interrumpir clics */
             z-index: 1000;
+        }
+
+        /* Media Query para dispositivos móviles */
+        @media (max-width: 768px) {
+            header img {
+                max-height: 120px; /* Reduce el tamaño del logo */
+            }
+            header .message {
+                font-size: 20px; /* Reduce el tamaño del mensaje navideño */
+            }
         }
     </style>
 </head>
