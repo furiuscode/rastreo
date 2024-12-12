@@ -71,6 +71,12 @@
         input[type="button"]:hover {
             background-color: #e55b54;
         }
+        #YQContainer {
+            margin-top: 20px;
+            background-color: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px;
+        }
         footer {
             margin-top: 50px;
             text-align: center;
@@ -107,6 +113,8 @@
             <input type="text" id="YQNum" maxlength="50" placeholder="Número de rastreo">
             <input type="button" value="Rastrear" onclick="doTrack()">
         </form>
+        <!-- Contenedor para el resultado del rastreo -->
+        <div id="YQContainer"></div>
     </div>
     <footer>
         &copy; 2024 Strideco. Todos los derechos reservados.
@@ -121,23 +129,14 @@
                 alert("Por favor, ingresa tu número de rastreo.");
                 return;
             }
-
-            // Habilita el desplazamiento al hacer clic en rastrear
-            document.body.style.overflow = "auto";
-
-            YQV5.trackSingleF2({
-                YQ_ElementId: "YQNum",
-                YQ_Width: 770,
+            // Muestra el resultado en el contenedor especificado
+            YQV5.trackSingle({
+                YQ_ContainerId: "YQContainer",
                 YQ_Height: 560,
                 YQ_Fc: "0",
                 YQ_Lang: "es",
                 YQ_Num: num
             });
-
-            // Opcional: Restaura overflow: hidden tras un tiempo
-            setTimeout(() => {
-                document.body.style.overflow = "hidden";
-            }, 5000); // Ajusta este tiempo si es necesario
         }
 
         const canvas = document.getElementById("snowCanvas");
@@ -195,6 +194,3 @@
     </script>
 </body>
 </html>
-
-
-
