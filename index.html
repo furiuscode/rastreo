@@ -40,14 +40,21 @@
         .container p {
             color: #ddd;
         }
+        .container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
         input[type="text"] {
-            width: 100%;
+            width: calc(100% - 40px); /* Asegura un margen cómodo */
+            max-width: 400px; /* Tamaño máximo en pantallas grandes */
             padding: 10px;
-            margin-bottom: 20px;
             border: 1px solid #555;
             border-radius: 4px;
             font-size: 16px;
             color: #333;
+            text-align: center; /* Centra el texto */
         }
         input[type="button"] {
             background-color: #ff6961;
@@ -80,6 +87,9 @@
             .container .message {
                 font-size: 18px;
             }
+            input[type="text"] {
+                max-width: 90%; /* Ajusta el ancho en móviles */
+            }
         }
     </style>
 </head>
@@ -90,8 +100,10 @@
         <div class="message">¡Feliz Navidad y Próspero Año Nuevo!</div>
         <h2>Rastrea tu Pedido</h2>
         <p>Ingresa tu número de rastreo para obtener información detallada de tu pedido.</p>
-        <input type="text" id="YQNum" maxlength="50" placeholder="Número de rastreo">
-        <input type="button" value="Rastrear" onclick="doTrack()">
+        <form>
+            <input type="text" id="YQNum" maxlength="50" placeholder="Número de rastreo">
+            <input type="button" value="Rastrear" onclick="doTrack()">
+        </form>
     </div>
     <footer>
         &copy; 2024 Strideco. Todos los derechos reservados.
@@ -180,6 +192,7 @@
     </script>
 </body>
 </html>
+
 
 
 
