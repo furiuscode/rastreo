@@ -12,7 +12,7 @@
             padding: 0;
             background-color: #1a1a1a; /* Fondo oscuro */
             color: white; /* Texto blanco para contraste */
-            overflow: hidden; /* Evita desplazamiento inicial */
+            /* Quitar overflow para permitir desplazamiento */
         }
         .container {
             max-width: 800px;
@@ -45,19 +45,19 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
-            padding: 10px; /* Espaciado interno general */
+            padding: 10px;
         }
         input[type="text"] {
-            width: 100%; /* Ocupa todo el ancho disponible */
-            max-width: 400px; /* Máximo ancho en pantallas grandes */
-            padding: 10px; /* Espaciado interno */
-            margin: 0 auto; /* Centra el campo */
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 0 auto;
             border: 1px solid #555;
             border-radius: 4px;
             font-size: 16px;
             color: #333;
-            text-align: center; /* Centra el texto dentro del input */
-            background-color: white; /* Fondo blanco */
+            text-align: center;
+            background-color: white;
         }
         input[type="button"] {
             background-color: #ff6961;
@@ -76,6 +76,8 @@
             background-color: #1a1a1a;
             padding: 10px;
             border-radius: 8px;
+            overflow: auto; /* Hacer contenido desplazable */
+            max-height: 500px; /* Limitar la altura máxima */
         }
         footer {
             margin-top: 50px;
@@ -97,7 +99,7 @@
                 font-size: 18px;
             }
             input[type="text"] {
-                max-width: 90%; /* Reduce el ancho en pantallas pequeñas */
+                max-width: 90%;
             }
         }
     </style>
