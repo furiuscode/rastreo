@@ -12,37 +12,33 @@
             padding: 0;
             background-color: #1a1a1a; /* Fondo oscuro */
             color: white; /* Texto blanco para contraste */
-            overflow: hidden; /* Para evitar barras de desplazamiento */
-        }
-        header {
-            padding: 20px;
-            text-align: center;
-        }
-        header img {
-            max-height: 200px; /* Tamaño del logo en pantallas normales */
-            margin-bottom: 10px;
-        }
-        header .message {
-            font-family: 'Mountains of Christmas', cursive; /* Fuente navideña */
-            font-size: 28px; /* Tamaño del mensaje en pantallas normales */
-            color: #ff6961; /* Rojo navideño */
-            margin-top: 10px;
+            overflow: hidden; /* Evita desplazamiento inicial */
         }
         .container {
             max-width: 800px;
-            margin: 50px auto;
+            margin: 20px auto; /* Reduce el espacio superior */
             padding: 20px;
             background-color: #2c2c2c; /* Fondo gris antracita */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             border-radius: 8px;
             text-align: center;
         }
+        .container img {
+            max-height: 150px;
+            margin-bottom: 10px;
+        }
+        .container .message {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 24px;
+            color: #ff6961;
+            margin-bottom: 20px;
+        }
         .container h2 {
             margin-bottom: 20px;
-            color: white; /* Blanco */
+            color: white;
         }
         .container p {
-            color: #ddd; /* Gris claro */
+            color: #ddd;
         }
         input[type="text"] {
             width: 100%;
@@ -51,10 +47,10 @@
             border: 1px solid #555;
             border-radius: 4px;
             font-size: 16px;
-            color: #333; /* Gris oscuro */
+            color: #333;
         }
         input[type="button"] {
-            background-color: #ff6961; /* Rojo navideño */
+            background-color: #ff6961;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -63,39 +59,35 @@
             border-radius: 4px;
         }
         input[type="button"]:hover {
-            background-color: #e55b54; /* Rojo más oscuro para hover */
+            background-color: #e55b54;
         }
         footer {
             margin-top: 50px;
             text-align: center;
-            color: #bbb; /* Gris claro */
+            color: #bbb;
         }
         canvas {
             position: fixed;
             top: 0;
             left: 0;
-            pointer-events: none; /* Evita interrumpir clics */
+            pointer-events: none;
             z-index: 1000;
         }
-
-        /* Media Query para dispositivos móviles */
         @media (max-width: 768px) {
-            header img {
-                max-height: 120px; /* Reduce el tamaño del logo */
+            .container img {
+                max-height: 100px;
             }
-            header .message {
-                font-size: 20px; /* Reduce el tamaño del mensaje navideño */
+            .container .message {
+                font-size: 18px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <!-- Logo más grande -->
+    <div class="container">
+        <!-- Logo y mensaje navideño dentro del contenedor -->
         <img src="logo.png" alt="Logo de Strideco">
         <div class="message">¡Feliz Navidad y Próspero Año Nuevo!</div>
-    </header>
-    <div class="container">
         <h2>Rastrea tu Pedido</h2>
         <p>Ingresa tu número de rastreo para obtener información detallada de tu pedido.</p>
         <input type="text" id="YQNum" maxlength="50" placeholder="Número de rastreo">
@@ -104,8 +96,6 @@
     <footer>
         &copy; 2024 Strideco. Todos los derechos reservados.
     </footer>
-
-    <!-- Lienzo para la nieve -->
     <canvas id="snowCanvas"></canvas>
 
     <script type="text/javascript" src="//www.17track.net/externalcall.js"></script>
@@ -116,6 +106,10 @@
                 alert("Por favor, ingresa tu número de rastreo.");
                 return;
             }
+
+            // Habilita el desplazamiento al hacer clic en rastrear
+            document.body.style.overflow = "auto";
+
             YQV5.trackSingleF2({
                 YQ_ElementId: "YQNum",
                 YQ_Width: 770,
@@ -124,16 +118,19 @@
                 YQ_Lang: "es",
                 YQ_Num: num
             });
+
+            // Opcional: Restaura overflow: hidden tras un tiempo
+            setTimeout(() => {
+                document.body.style.overflow = "hidden";
+            }, 5000); // Ajusta este tiempo si es necesario
         }
 
-        // Efecto de nieve
         const canvas = document.getElementById("snowCanvas");
         const ctx = canvas.getContext("2d");
         let width = (canvas.width = window.innerWidth);
         let height = (canvas.height = window.innerHeight);
         const snowflakes = [];
 
-        // Genera copos de nieve
         function createSnowflakes() {
             for (let i = 0; i < 100; i++) {
                 snowflakes.push({
@@ -146,7 +143,6 @@
             }
         }
 
-        // Dibuja los copos de nieve
         function drawSnowflakes() {
             ctx.clearRect(0, 0, width, height);
             ctx.fillStyle = "white";
@@ -159,7 +155,6 @@
             updateSnowflakes();
         }
 
-        // Actualiza la posición de los copos de nieve
         function updateSnowflakes() {
             snowflakes.forEach((flake) => {
                 flake.y += flake.speed;
@@ -170,13 +165,11 @@
             });
         }
 
-        // Ajusta el tamaño del lienzo al cambiar el tamaño de la ventana
         window.addEventListener("resize", () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });
 
-        // Inicia el efecto de nieve
         function animate() {
             drawSnowflakes();
             requestAnimationFrame(animate);
@@ -187,5 +180,6 @@
     </script>
 </body>
 </html>
+
 
 
