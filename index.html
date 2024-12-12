@@ -45,16 +45,19 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
+            padding: 10px; /* Espaciado interno general */
         }
         input[type="text"] {
-            width: calc(100% - 40px); /* Asegura un margen cómodo */
-            max-width: 400px; /* Tamaño máximo en pantallas grandes */
-            padding: 10px;
+            width: 100%; /* Ocupa todo el ancho disponible */
+            max-width: 400px; /* Máximo ancho en pantallas grandes */
+            padding: 10px; /* Espaciado interno */
+            margin: 0 auto; /* Centra el campo */
             border: 1px solid #555;
             border-radius: 4px;
             font-size: 16px;
             color: #333;
-            text-align: center; /* Centra el texto */
+            text-align: center; /* Centra el texto dentro del input */
+            background-color: white; /* Fondo blanco */
         }
         input[type="button"] {
             background-color: #ff6961;
@@ -88,7 +91,7 @@
                 font-size: 18px;
             }
             input[type="text"] {
-                max-width: 90%; /* Ajusta el ancho en móviles */
+                max-width: 90%; /* Reduce el ancho en pantallas pequeñas */
             }
         }
     </style>
@@ -192,7 +195,6 @@
     </script>
 </body>
 </html>
-
 
 
 
